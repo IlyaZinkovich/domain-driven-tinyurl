@@ -1,28 +1,26 @@
 package com.system.design.tinyurl.domain.url;
 
-import java.util.Objects;
-
 public class TinyUrl {
 
     private TinyUrlId id;
-    private String tinyUrl;
-    private String originalUrl;
+    private String tinyValue;
+    private String originalValue;
 
-    public TinyUrl(TinyUrlId id, String tinyUrl, String originalUrl) {
+    public TinyUrl(TinyUrlId id, String tinyValue, String originalValue) {
         this.id = id;
-        this.tinyUrl = tinyUrl;
-        this.originalUrl = originalUrl;
+        this.tinyValue = tinyValue;
+        this.originalValue = originalValue;
     }
 
     public TinyUrlId id() {
         return id;
     }
 
-    public String tinyUrl() {
-        return tinyUrl;
+    public String tinyValue() {
+        return tinyValue;
     }
 
-    public String originalUrl() {
-        return originalUrl;
+    public String originalValue() {
+        return originalValue;
     }
 }

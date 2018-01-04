@@ -23,7 +23,7 @@ public class TinyUrlService {
         String longUrl = command.longUrl();
         TinyUrl tinyUrl = new TinyUrl(tinyUrlId, longUrl, longUrl);
         repository.save(tinyUrl);
-        eventsPublisher.publish(new TinyUrlCreatedEvent(tinyUrlId, longUrl, tinyUrl.tinyUrl()));
+        eventsPublisher.publish(new TinyUrlCreatedEvent(tinyUrlId, longUrl, tinyUrl.tinyValue()));
     }
 
     public TinyUrl findTinyUrlById(TinyUrlByIdQuery query) {

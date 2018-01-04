@@ -18,7 +18,7 @@ public class CacheServiceTest {
     public void testHandleTinyUrlCreated() {
         DomainEventsPublisher eventsPublisher = new InMemoryDomainEventsPublisher();
         UrlCache urlCache = new InMemoryUrlCache();
-        CacheService cacheService = new CacheService(eventsPublisher, urlCache);
+        CacheService cacheService = new CacheService(urlCache, eventsPublisher);
         TinyUrlId id = new TinyUrlId("uuid");
         String longUrl = "longUrl";
         String tinyUrl = "tinyUrl";
@@ -33,7 +33,7 @@ public class CacheServiceTest {
         String tinyUrl = "tinyUrl";
         String longUrl = "longUrl";
         urlCache.put(tinyUrl, longUrl);
-        CacheService cacheService = new CacheService(eventsPublisher, urlCache);
+        CacheService cacheService = new CacheService(urlCache, eventsPublisher);
         String longUrlByTinyUrl = cacheService.findLongUrlByTinyUrl(new LongUrlByTinyUrlQuery(tinyUrl));
         assertEquals(longUrl, longUrlByTinyUrl);
     }

@@ -30,8 +30,8 @@ public class TinyUrlServiceTest {
         TinyUrl tinyUrl = repository.getById(event.tinyUrlId());
         assertNotNull(tinyUrl);
         assertNotNull(tinyUrl.id());
-        assertEquals(longUrl, tinyUrl.originalUrl());
-        assertEquals(longUrl, tinyUrl.tinyUrl());
+        assertEquals(longUrl, tinyUrl.originalValue());
+        assertEquals(longUrl, tinyUrl.tinyValue());
     }
 
     @Test

@@ -9,10 +9,8 @@ import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
 public class CacheService {
 
     private UrlCache urlCache;
-    private DomainEventsPublisher eventsPublisher;
 
-    public CacheService(DomainEventsPublisher eventsPublisher, UrlCache urlCache) {
-        this.eventsPublisher = eventsPublisher;
+    public CacheService(UrlCache urlCache, DomainEventsPublisher eventsPublisher) {
         this.urlCache = urlCache;
         eventsPublisher.subscribe(this::handleTinyUrlCreated);
     }
