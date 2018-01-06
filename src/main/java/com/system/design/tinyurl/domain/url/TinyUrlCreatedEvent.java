@@ -5,24 +5,24 @@ import com.system.design.tinyurl.domain.event.DomainEvent;
 public class TinyUrlCreatedEvent implements DomainEvent {
 
     private TinyUrlId tinyUrlId;
-    private String tinyUrl;
-    private String longUrl;
+    private String urlHash;
+    private String originalUrl;
 
-    public TinyUrlCreatedEvent(TinyUrlId tinyUrlId, String longUrl, String tinyUrl) {
+    public TinyUrlCreatedEvent(TinyUrlId tinyUrlId, String originalUrl, String urlHash) {
         this.tinyUrlId = tinyUrlId;
-        this.tinyUrl = tinyUrl;
-        this.longUrl = longUrl;
+        this.urlHash = urlHash;
+        this.originalUrl = originalUrl;
     }
 
     public TinyUrlId tinyUrlId() {
         return tinyUrlId;
     }
 
-    public String tinyUrl() {
-        return tinyUrl;
+    public String urlHash() {
+        return urlHash;
     }
 
-    public String longUrl() {
-        return longUrl;
+    public String originalUrl() {
+        return originalUrl;
     }
 }

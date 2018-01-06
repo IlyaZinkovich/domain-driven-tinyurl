@@ -1,7 +1,7 @@
 package com.system.design.tinyurl;
 
 import com.system.design.tinyurl.application.cache.CacheService;
-import com.system.design.tinyurl.application.cache.query.LongUrlByTinyUrlQuery;
+import com.system.design.tinyurl.application.cache.query.OriginalUrlByHashQuery;
 import com.system.design.tinyurl.domain.cache.UrlCache;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
@@ -20,21 +20,21 @@ public class CacheServiceTest {
         UrlCache urlCache = new InMemoryUrlCache();
         CacheService cacheService = new CacheService(urlCache, eventsPublisher);
         TinyUrlId id = new TinyUrlId("uuid");
-        String longUrl = "longUrl";
-        String tinyUrl = "tinyUrl";
-        cacheService.handleTinyUrlCreated(new TinyUrlCreatedEvent(id, longUrl, tinyUrl));
-        assertEquals(longUrl, urlCache.get(tinyUrl));
+        String originalUrl = "originalUrl";
+        String urlHash = "urlHash";
+        cacheService.handleTinyUrlCreated(new TinyUrlCreatedEvent(id, originalUrl, urlHash));
+        assertEquals(originalUrl, urlCache.get(urlHash));
     }
 
     @Test
-    public void testFindLongUrlByTinyUrl() {
+    public void testFindOriginalUrlByHash() {
         DomainEventsPublisher eventsPublisher = new InMemoryDomainEventsPublisher();
         UrlCache urlCache = new InMemoryUrlCache();
-        String tinyUrl = "tinyUrl";
-        String longUrl = "longUrl";
-        urlCache.put(tinyUrl, longUrl);
+        String urlHash = "urlHash";
+        String originalUrl = "originalUrl";
+        urlCache.put(urlHash, originalUrl);
         CacheService cacheService = new CacheService(urlCache, eventsPublisher);
-        String longUrlByTinyUrl = cacheService.findLongUrlByTinyUrl(new LongUrlByTinyUrlQuery(tinyUrl));
-        assertEquals(longUrl, longUrlByTinyUrl);
+        String originalUrlByHash = cacheService.findOriginalUrlByHash(new OriginalUrlByHashQuery(urlHash));
+        assertEquals(originalUrl, originalUrlByHash);
     }
 }

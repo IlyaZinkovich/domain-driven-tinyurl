@@ -2,13 +2,13 @@ package com.system.design.tinyurl.application.url.command;
 
 public class CreateTinyUrlCommand {
 
-    private String longUrl;
+    private String originalUrl;
 
-    public CreateTinyUrlCommand(String longUrl) {
-        this.longUrl = longUrl;
+    public CreateTinyUrlCommand(String originalUrl) {
+        this.originalUrl = originalUrl;
     }
 
-    public String longUrl() {
-        return longUrl;
+    public String originalUrl() {
+        return originalUrl;
     }
 }

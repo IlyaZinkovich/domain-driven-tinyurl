@@ -3,24 +3,24 @@ package com.system.design.tinyurl.domain.url;
 public class TinyUrl {
 
     private TinyUrlId id;
-    private String tinyValue;
-    private String originalValue;
+    private String urlHash;
+    private String originalUrl;
 
-    public TinyUrl(TinyUrlId id, String tinyValue, String originalValue) {
+    public TinyUrl(TinyUrlId id, String urlHash, String originalUrl) {
         this.id = id;
-        this.tinyValue = tinyValue;
-        this.originalValue = originalValue;
+        this.urlHash = urlHash;
+        this.originalUrl = originalUrl;
     }
 
     public TinyUrlId id() {
         return id;
     }
 
-    public String tinyValue() {
-        return tinyValue;
+    public String urlHash() {
+        return urlHash;
     }
 
-    public String originalValue() {
-        return originalValue;
+    public String originalUrl() {
+        return originalUrl;
     }
 }

@@ -24,14 +24,14 @@ public class TinyUrlServiceTest {
         eventsPublisher.subscribe(subscriber);
         TinyUrlRepository repository = new InMemoryTinyUrlRepository();
         TinyUrlService service = new TinyUrlService(repository, eventsPublisher);
-        String longUrl = "http://some.long/url";
-        service.createTinyUrl(new CreateTinyUrlCommand(longUrl));
+        String originalUrl = "http://some.long/url";
+        service.createTinyUrl(new CreateTinyUrlCommand(originalUrl));
         TinyUrlCreatedEvent event = subscriber.event();
         TinyUrl tinyUrl = repository.getById(event.tinyUrlId());
         assertNotNull(tinyUrl);
         assertNotNull(tinyUrl.id());
-        assertEquals(longUrl, tinyUrl.originalValue());
-        assertEquals(longUrl, tinyUrl.tinyValue());
+        assertEquals(originalUrl, tinyUrl.originalUrl());
+        assertEquals(originalUrl, tinyUrl.urlHash());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class TinyUrlServiceTest {
         TinyUrlRepository repository = new InMemoryTinyUrlRepository();
         TinyUrlService service = new TinyUrlService(repository, eventsPublisher);
         TinyUrlId tinyUrlId = new TinyUrlId("uuid");
-        TinyUrl tinyUrl = new TinyUrl(tinyUrlId, "tinyUrl", "longUrl");
+        TinyUrl tinyUrl = new TinyUrl(tinyUrlId, "urlHash", "originalUrl");
         repository.save(tinyUrl);
         TinyUrl tinyUrlById = service.findTinyUrlById(new TinyUrlByIdQuery(tinyUrlId));
         assertEquals(tinyUrl, tinyUrlById);

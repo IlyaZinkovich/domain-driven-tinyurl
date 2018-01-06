@@ -20,10 +20,10 @@ public class TinyUrlService {
 
     public void createTinyUrl(CreateTinyUrlCommand command) {
         TinyUrlId tinyUrlId = repository.nextIdentity();
-        String longUrl = command.longUrl();
-        TinyUrl tinyUrl = new TinyUrl(tinyUrlId, longUrl, longUrl);
+        String originalUrl = command.originalUrl();
+        TinyUrl tinyUrl = new TinyUrl(tinyUrlId, originalUrl, originalUrl);
         repository.save(tinyUrl);
-        eventsPublisher.publish(new TinyUrlCreatedEvent(tinyUrlId, longUrl, tinyUrl.tinyValue()));
+        eventsPublisher.publish(new TinyUrlCreatedEvent(tinyUrlId, originalUrl, tinyUrl.urlHash()));
     }
 
     public TinyUrl findTinyUrlById(TinyUrlByIdQuery query) {

@@ -1,6 +1,6 @@
 package com.system.design.tinyurl.application.cache;
 
-import com.system.design.tinyurl.application.cache.query.LongUrlByTinyUrlQuery;
+import com.system.design.tinyurl.application.cache.query.OriginalUrlByHashQuery;
 import com.system.design.tinyurl.domain.cache.UrlCache;
 import com.system.design.tinyurl.domain.event.DomainEvent;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
@@ -18,11 +18,11 @@ public class CacheService {
     public void handleTinyUrlCreated(DomainEvent event) {
         if (event instanceof TinyUrlCreatedEvent) {
             TinyUrlCreatedEvent tinyUrlCreatedEvent = (TinyUrlCreatedEvent) event;
-            urlCache.put(tinyUrlCreatedEvent.tinyUrl(), tinyUrlCreatedEvent.longUrl());
+            urlCache.put(tinyUrlCreatedEvent.urlHash(), tinyUrlCreatedEvent.originalUrl());
         }
     }
 
-    public String findLongUrlByTinyUrl(LongUrlByTinyUrlQuery query) {
-        return urlCache.get(query.tinyUrl());
+    public String findOriginalUrlByHash(OriginalUrlByHashQuery query) {
+        return urlCache.get(query.urlHash());
     }
 }
