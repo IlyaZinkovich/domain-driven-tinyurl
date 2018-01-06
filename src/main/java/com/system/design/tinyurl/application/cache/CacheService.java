@@ -8,7 +8,7 @@ import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
 
 public class CacheService {
 
-    private UrlCache urlCache;
+    private final UrlCache urlCache;
 
     public CacheService(UrlCache urlCache, DomainEventsPublisher eventsPublisher) {
         this.urlCache = urlCache;
@@ -17,7 +17,7 @@ public class CacheService {
 
     public void handleTinyUrlCreated(DomainEvent event) {
         if (event instanceof TinyUrlCreatedEvent) {
-            TinyUrlCreatedEvent tinyUrlCreatedEvent = (TinyUrlCreatedEvent) event;
+            final TinyUrlCreatedEvent tinyUrlCreatedEvent = (TinyUrlCreatedEvent) event;
             urlCache.put(tinyUrlCreatedEvent.urlHash(), tinyUrlCreatedEvent.originalUrl());
         }
     }

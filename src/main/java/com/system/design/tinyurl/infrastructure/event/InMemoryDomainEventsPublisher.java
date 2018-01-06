@@ -9,7 +9,7 @@ import java.util.List;
 
 public class InMemoryDomainEventsPublisher implements DomainEventsPublisher {
 
-    private List<Subscriber> subscribers = new ArrayList<>();
+    private final List<Subscriber> subscribers = new ArrayList<>();
 
     public void subscribe(Subscriber subscriber) {
         subscribers.add(subscriber);

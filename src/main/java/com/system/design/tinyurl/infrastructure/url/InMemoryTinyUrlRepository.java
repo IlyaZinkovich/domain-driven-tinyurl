@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class InMemoryTinyUrlRepository implements TinyUrlRepository {
 
-    private Map<TinyUrlId, TinyUrl> tinyUrls = new HashMap<>();
+    private final Map<TinyUrlId, TinyUrl> tinyUrls = new HashMap<>();
 
     public TinyUrlId nextIdentity() {
         return new TinyUrlId(UUID.randomUUID().toString());

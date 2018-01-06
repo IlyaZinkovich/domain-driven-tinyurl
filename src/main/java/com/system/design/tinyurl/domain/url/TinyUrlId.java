@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class TinyUrlId {
 
-    private String uuid;
+    private final String uuid;
 
     public TinyUrlId(String uuid) {
         this.uuid = uuid;

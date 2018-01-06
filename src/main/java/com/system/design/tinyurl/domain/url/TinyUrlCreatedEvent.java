@@ -4,9 +4,9 @@ import com.system.design.tinyurl.domain.event.DomainEvent;
 
 public class TinyUrlCreatedEvent implements DomainEvent {
 
-    private TinyUrlId tinyUrlId;
-    private String urlHash;
-    private String originalUrl;
+    private final TinyUrlId tinyUrlId;
+    private final String urlHash;
+    private final String originalUrl;
 
     public TinyUrlCreatedEvent(TinyUrlId tinyUrlId, String originalUrl, String urlHash) {
         this.tinyUrlId = tinyUrlId;

@@ -2,9 +2,9 @@ package com.system.design.tinyurl.domain.url;
 
 public class TinyUrl {
 
-    private TinyUrlId id;
-    private String urlHash;
-    private String originalUrl;
+    private final TinyUrlId id;
+    private final String urlHash;
+    private final String originalUrl;
 
     public TinyUrl(TinyUrlId id, String urlHash, String originalUrl) {
         this.id = id;

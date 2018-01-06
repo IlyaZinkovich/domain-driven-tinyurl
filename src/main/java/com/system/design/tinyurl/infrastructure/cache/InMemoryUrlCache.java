@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class InMemoryUrlCache implements UrlCache {
 
-    private Map<String, String> cache = new HashMap<>();
+    private final Map<String, String> cache = new HashMap<>();
 
     @Override
     public void put(String urlHash, String originalUrl) {

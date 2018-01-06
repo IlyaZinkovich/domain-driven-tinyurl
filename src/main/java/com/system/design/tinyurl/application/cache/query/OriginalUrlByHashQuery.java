@@ -2,7 +2,7 @@ package com.system.design.tinyurl.application.cache.query;
 
 public class OriginalUrlByHashQuery {
 
-    private String urlHash;
+    private final String urlHash;
 
     public OriginalUrlByHashQuery(String urlHash) {
         this.urlHash = urlHash;

@@ -4,7 +4,7 @@ import com.system.design.tinyurl.domain.url.TinyUrlId;
 
 public class TinyUrlByIdQuery {
 
-    private TinyUrlId tinyUrlId;
+    private final TinyUrlId tinyUrlId;
 
     public TinyUrlByIdQuery(TinyUrlId tinyUrlId) {
         this.tinyUrlId = tinyUrlId;
