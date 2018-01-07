@@ -45,6 +45,12 @@ public class CommandLinePresentation {
                 final String urlHash = cmdInputScanner.next();
                 final String originalUrl = cacheService.findOriginalUrlByHash(new OriginalUrlByHashQuery(urlHash));
                 stringOutput.accept(originalUrl);
+            } else if ("wait".equals(nextCommand)) {
+                try {
+                    Thread.sleep(3000L);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             } else if ("exit".equals(nextCommand)) {
                 break;
             }
