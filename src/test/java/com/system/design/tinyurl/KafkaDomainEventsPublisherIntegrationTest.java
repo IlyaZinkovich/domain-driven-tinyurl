@@ -3,14 +3,15 @@ package com.system.design.tinyurl;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
 import com.system.design.tinyurl.domain.url.TinyUrlId;
-import com.system.design.tinyurl.infrastructure.event.KafkaDomainEventsPublisher;
+import com.system.design.tinyurl.infrastructure.event.kafka.KafkaDomainEventsPublisher;
 import info.batey.kafka.unit.KafkaUnit;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.List;
-import java.util.concurrent.TimeoutException;
+import static org.awaitility.Awaitility.await;
+import static org.awaitility.Duration.FIVE_SECONDS;
+import static org.junit.Assert.assertEquals;
 
 public class KafkaDomainEventsPublisherIntegrationTest {
 
@@ -30,12 +31,16 @@ public class KafkaDomainEventsPublisherIntegrationTest {
     }
 
     @Test
-    public void testKafkaDomainEventsPublisher() throws InterruptedException, TimeoutException {
+    public void testKafkaDomainEventsPublisher() throws Exception {
         DomainEventsPublisher domainEventsPublisher = new KafkaDomainEventsPublisher(kafkaConnection);
-        domainEventsPublisher.subscribe(System.out::println);
-        domainEventsPublisher.publish(new TinyUrlCreatedEvent(new TinyUrlId("uuid"), "http://some.url", "hash"));
-        final List<String> messages = kafkaUnitServer.readMessages("tinyurl-topic", 1);
-        messages.forEach(System.out::println);
-        Thread.sleep(10000);
+        final TestingTinyUrlCreatedEventSubscriber subscriber = new TestingTinyUrlCreatedEventSubscriber();
+        domainEventsPublisher.subscribe(subscriber);
+        final TinyUrlId tinyUrlId = new TinyUrlId("uuid");
+        final String originalUrl = "http://some.url";
+        final String urlHash = "urlHash";
+        final TinyUrlCreatedEvent event = new TinyUrlCreatedEvent(tinyUrlId, originalUrl, urlHash);
+        domainEventsPublisher.publish(event);
+        await().atMost(FIVE_SECONDS).until(() -> subscriber.event() != null);
+        assertEquals(event, subscriber.event());
     }
 }
