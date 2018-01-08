@@ -1,8 +1,11 @@
 package com.system.design.tinyurl.domain.url;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class TinyUrlId {
+public class TinyUrlId implements Serializable {
+
+    private static final long serialVersionUID = -4188816657978122528L;
 
     private final String uuid;
 

@@ -9,6 +9,9 @@ import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
 import com.system.design.tinyurl.domain.url.TinyUrlId;
 import com.system.design.tinyurl.domain.url.TinyUrlRepository;
 
+import javax.transaction.Transactional;
+import java.util.Optional;
+
 public class TinyUrlService {
 
     private final TinyUrlRepository repository;
@@ -22,6 +25,7 @@ public class TinyUrlService {
         this.repository = repository;
     }
 
+    @Transactional
     public void createTinyUrl(CreateTinyUrlCommand command) {
         final TinyUrlId tinyUrlId = repository.nextIdentity();
         final String originalUrl = command.originalUrl();
@@ -31,7 +35,8 @@ public class TinyUrlService {
         eventsPublisher.publish(new TinyUrlCreatedEvent(tinyUrlId, tinyUrl.originalUrl(), tinyUrl.urlHash()));
     }
 
-    public TinyUrl findTinyUrlById(TinyUrlByIdQuery query) {
+    @Transactional
+    public Optional<TinyUrl> findTinyUrlById(TinyUrlByIdQuery query) {
         return repository.getById(query.tinyUrlId());
     }
 }

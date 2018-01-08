@@ -6,6 +6,7 @@ import com.system.design.tinyurl.domain.url.TinyUrlRepository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public class InMemoryTinyUrlRepository implements TinyUrlRepository {
@@ -20,7 +21,7 @@ public class InMemoryTinyUrlRepository implements TinyUrlRepository {
         tinyUrls.put(tinyUrl.id(), tinyUrl);
     }
 
-    public TinyUrl getById(TinyUrlId id) {
-        return tinyUrls.get(id);
+    public Optional<TinyUrl> getById(TinyUrlId id) {
+        return Optional.ofNullable(tinyUrls.get(id));
     }
 }

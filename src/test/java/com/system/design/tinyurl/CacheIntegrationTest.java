@@ -33,7 +33,7 @@ public class CacheIntegrationTest {
         String originalUrl = "originalUrl";
         tinyUrlService.createTinyUrl(new CreateTinyUrlCommand(originalUrl));
         TinyUrlCreatedEvent tinyUrlCreatedEvent = subscriber.event();
-        TinyUrl tinyUrlById = repository.getById(tinyUrlCreatedEvent.tinyUrlId());
+        TinyUrl tinyUrlById = repository.getById(tinyUrlCreatedEvent.tinyUrlId()).orElseThrow(AssertionError::new);
         assertEquals(tinyUrlById.originalUrl(), urlCache.get(tinyUrlById.urlHash()));
         final String cachedOriginalUrl = cacheService.findOriginalUrlByHash(new OriginalUrlByHashQuery(tinyUrlById.urlHash()));
         assertEquals(tinyUrlById.originalUrl(), cachedOriginalUrl);
