@@ -9,9 +9,9 @@ import com.system.design.tinyurl.domain.url.TinyUrl;
 import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
 import com.system.design.tinyurl.domain.url.TinyUrlId;
 import com.system.design.tinyurl.domain.url.TinyUrlRepository;
-import com.system.design.tinyurl.infrastructure.event.InMemoryDomainEventsPublisher;
+import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventsPublisher;
 import com.system.design.tinyurl.infrastructure.hash.md5.MD5HashGenerator;
-import com.system.design.tinyurl.infrastructure.url.InMemoryTinyUrlRepository;
+import com.system.design.tinyurl.infrastructure.url.inmemory.InMemoryTinyUrlRepository;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

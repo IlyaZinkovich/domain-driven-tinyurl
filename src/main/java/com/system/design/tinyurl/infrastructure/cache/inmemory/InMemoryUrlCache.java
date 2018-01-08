@@ -1,4 +1,4 @@
-package com.system.design.tinyurl.infrastructure.cache;
+package com.system.design.tinyurl.infrastructure.cache.inmemory;
 
 import com.system.design.tinyurl.domain.cache.UrlCache;
 

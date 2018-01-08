@@ -6,10 +6,10 @@ import com.system.design.tinyurl.domain.cache.UrlCache;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 import com.system.design.tinyurl.domain.hash.HashGenerator;
 import com.system.design.tinyurl.domain.url.TinyUrlRepository;
-import com.system.design.tinyurl.infrastructure.cache.InMemoryUrlCache;
-import com.system.design.tinyurl.infrastructure.event.InMemoryDomainEventsPublisher;
+import com.system.design.tinyurl.infrastructure.cache.inmemory.InMemoryUrlCache;
+import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventsPublisher;
 import com.system.design.tinyurl.infrastructure.hash.md5.MD5HashGenerator;
-import com.system.design.tinyurl.infrastructure.url.InMemoryTinyUrlRepository;
+import com.system.design.tinyurl.infrastructure.url.inmemory.InMemoryTinyUrlRepository;
 import com.system.design.tinyurl.presentation.CommandLinePresentation;
 
 import java.util.Scanner;

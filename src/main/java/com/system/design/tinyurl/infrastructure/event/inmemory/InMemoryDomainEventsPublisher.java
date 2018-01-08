@@ -1,4 +1,4 @@
-package com.system.design.tinyurl.infrastructure.event;
+package com.system.design.tinyurl.infrastructure.event.inmemory;
 
 import com.system.design.tinyurl.domain.event.DomainEvent;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;

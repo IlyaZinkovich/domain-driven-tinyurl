@@ -6,8 +6,8 @@ import com.system.design.tinyurl.domain.cache.UrlCache;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
 import com.system.design.tinyurl.domain.url.TinyUrlId;
-import com.system.design.tinyurl.infrastructure.cache.InMemoryUrlCache;
-import com.system.design.tinyurl.infrastructure.event.InMemoryDomainEventsPublisher;
+import com.system.design.tinyurl.infrastructure.cache.inmemory.InMemoryUrlCache;
+import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventsPublisher;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

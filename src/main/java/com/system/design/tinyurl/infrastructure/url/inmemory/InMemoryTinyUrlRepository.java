@@ -1,4 +1,4 @@
-package com.system.design.tinyurl.infrastructure.url;
+package com.system.design.tinyurl.infrastructure.url.inmemory;
 
 import com.system.design.tinyurl.domain.url.TinyUrl;
 import com.system.design.tinyurl.domain.url.TinyUrlId;
