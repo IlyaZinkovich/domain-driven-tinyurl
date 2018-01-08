@@ -22,7 +22,6 @@ public class KafkaDomainEventsPublisherIntegrationTest {
     @BeforeClass
     public static void setup() {
         kafkaUnitServer.startup();
-        kafkaUnitServer.createTopic("tinyurl-topic");
     }
 
     @AfterClass
@@ -31,16 +30,17 @@ public class KafkaDomainEventsPublisherIntegrationTest {
     }
 
     @Test
-    public void testKafkaDomainEventsPublisher() throws Exception {
-        DomainEventsPublisher domainEventsPublisher = new KafkaDomainEventsPublisher(kafkaConnection);
+    public void testKafkaDomainEventsPublisher() throws InterruptedException {
+        DomainEventsPublisher eventsPublisher = new KafkaDomainEventsPublisher(kafkaConnection);
         final TestingTinyUrlCreatedEventSubscriber subscriber = new TestingTinyUrlCreatedEventSubscriber();
-        domainEventsPublisher.subscribe(subscriber);
+        eventsPublisher.subscribe(subscriber);
         final TinyUrlId tinyUrlId = new TinyUrlId("uuid");
         final String originalUrl = "http://some.url";
         final String urlHash = "urlHash";
         final TinyUrlCreatedEvent event = new TinyUrlCreatedEvent(tinyUrlId, originalUrl, urlHash);
-        domainEventsPublisher.publish(event);
+        eventsPublisher.publish(event);
         await().atMost(FIVE_SECONDS).until(() -> subscriber.event() != null);
         assertEquals(event, subscriber.event());
+        eventsPublisher.shutdown();
     }
 }

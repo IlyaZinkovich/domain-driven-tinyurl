@@ -2,12 +2,11 @@ package com.system.design.tinyurl;
 
 import com.system.design.tinyurl.application.cache.CacheService;
 import com.system.design.tinyurl.application.url.TinyUrlService;
-import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 import com.system.design.tinyurl.domain.hash.HashGenerator;
-import com.system.design.tinyurl.infrastructure.cache.InMemoryUrlCache;
+import com.system.design.tinyurl.infrastructure.cache.inmemory.InMemoryUrlCache;
 import com.system.design.tinyurl.infrastructure.event.kafka.KafkaDomainEventsPublisher;
 import com.system.design.tinyurl.infrastructure.hash.md5.MD5HashGenerator;
-import com.system.design.tinyurl.infrastructure.url.InMemoryTinyUrlRepository;
+import com.system.design.tinyurl.infrastructure.url.inmemory.InMemoryTinyUrlRepository;
 import com.system.design.tinyurl.presentation.CommandLinePresentation;
 import info.batey.kafka.unit.KafkaUnit;
 import org.junit.AfterClass;
@@ -28,7 +27,6 @@ public class KafkaWithCommandLinePresentationIntegrationTest {
     @BeforeClass
     public static void setup() {
         kafkaUnitServer.startup();
-        kafkaUnitServer.createTopic("tinyurl-topic");
     }
 
     @AfterClass
@@ -37,8 +35,8 @@ public class KafkaWithCommandLinePresentationIntegrationTest {
     }
 
     @Test
-    public void testKafkaDomainEventsPublisher() {
-        final DomainEventsPublisher eventsPublisher = new KafkaDomainEventsPublisher(kafkaConnection);
+    public void testKafkaDomainEventsPublisher() throws InterruptedException {
+        final KafkaDomainEventsPublisher eventsPublisher = new KafkaDomainEventsPublisher(kafkaConnection);
         final CacheService cacheService = new CacheService(new InMemoryUrlCache(), eventsPublisher);
         final HashGenerator hashGenerator = new MD5HashGenerator();
         final TinyUrlService tinyUrlService = new TinyUrlService(new InMemoryTinyUrlRepository(),
@@ -54,5 +52,6 @@ public class KafkaWithCommandLinePresentationIntegrationTest {
         assertEquals(hashedUrl, generatedUrlHash);
         final String getUrlOutput = outputConsumer.output().get(1);
         assertEquals(url, getUrlOutput);
+        eventsPublisher.shutdown();
     }
 }

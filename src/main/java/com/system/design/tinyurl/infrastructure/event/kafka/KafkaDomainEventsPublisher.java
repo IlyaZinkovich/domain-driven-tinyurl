@@ -3,7 +3,9 @@ package com.system.design.tinyurl.infrastructure.event.kafka;
 import com.system.design.tinyurl.domain.event.DomainEvent;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 import com.system.design.tinyurl.domain.event.Subscriber;
-import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -29,28 +31,15 @@ public class KafkaDomainEventsPublisher implements DomainEventsPublisher {
     private final Producer<Long, DomainEvent> producer;
     private final Consumer<Long, DomainEvent> consumer;
     private final List<Subscriber> subscribers = new ArrayList<>();
+    private final ConsumerJob consumerJob;
 
     public KafkaDomainEventsPublisher(String bootstrapServers) {
         this.consumer = createConsumer(bootstrapServers);
         this.producer = createProducer(bootstrapServers);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         this.consumer.subscribe(singletonList(TOPIC));
-        executorService.execute(() -> {
-            try {
-                while (true) {
-                    ConsumerRecords<Long, DomainEvent> records = consumer.poll(1000);
-                    for (ConsumerRecord<Long, DomainEvent> record : records) {
-                        subscribers.forEach(subscriber -> {
-                            final DomainEvent domainEvent = record.value();
-                            subscriber.receive(domainEvent);
-                        });
-                    }
-                    consumer.commitAsync();
-                }
-            } finally {
-                consumer.close();
-            }
-        });
+        this.consumerJob = new ConsumerJob(consumer, subscribers);
+        executorService.execute(consumerJob);
     }
 
     @Override
@@ -81,5 +70,9 @@ public class KafkaDomainEventsPublisher implements DomainEventsPublisher {
         props.put(KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
         props.put(VALUE_DESERIALIZER_CLASS_CONFIG, DomainEventDeserializer.class.getName());
         return new KafkaConsumer<>(props);
+    }
+
+    public void shutdown() {
+        consumerJob.stop();
     }
 }

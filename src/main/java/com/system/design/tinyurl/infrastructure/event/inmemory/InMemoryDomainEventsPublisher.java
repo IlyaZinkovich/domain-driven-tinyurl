@@ -18,4 +18,9 @@ public class InMemoryDomainEventsPublisher implements DomainEventsPublisher {
     public void publish(DomainEvent event) {
         subscribers.forEach(subscriber -> subscriber.receive(event));
     }
+
+    @Override
+    public void shutdown() {
+        subscribers.clear();
+    }
 }
