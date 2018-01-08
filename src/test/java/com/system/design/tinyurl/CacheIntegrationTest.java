@@ -1,9 +1,10 @@
 package com.system.design.tinyurl;
 
 import com.system.design.tinyurl.application.cache.CacheService;
-import com.system.design.tinyurl.application.cache.query.OriginalUrlByHashQuery;
+import com.system.design.tinyurl.domain.cache.query.OriginalUrlByHashQuery;
 import com.system.design.tinyurl.application.url.TinyUrlService;
-import com.system.design.tinyurl.application.url.command.CreateTinyUrlCommand;
+import com.system.design.tinyurl.domain.url.TinyUrlFactory;
+import com.system.design.tinyurl.domain.url.command.CreateTinyUrlCommand;
 import com.system.design.tinyurl.domain.cache.UrlCache;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 import com.system.design.tinyurl.domain.event.DomainEventsSubscriber;
@@ -30,7 +31,8 @@ public class CacheIntegrationTest {
         final DomainEventsPublisher domainEventsPublisher = new InMemoryDomainEventsPublisher(eventLog);
         final TinyUrlRepository repository = new InMemoryTinyUrlRepository();
         final HashGenerator hashGenerator = new MD5HashGenerator();
-        final TinyUrlService tinyUrlService = new TinyUrlService(repository, hashGenerator, domainEventsPublisher);
+        final TinyUrlFactory tinyUrlFactory = new TinyUrlFactory(hashGenerator);
+        final TinyUrlService tinyUrlService = new TinyUrlService(repository, tinyUrlFactory, domainEventsPublisher);
         final UrlCache urlCache = new InMemoryUrlCache();
         final CacheService cacheService = new CacheService(urlCache, domainEventsSubscriber);
         final TestingTinyUrlCreatedEventConsumer subscriber = new TestingTinyUrlCreatedEventConsumer();

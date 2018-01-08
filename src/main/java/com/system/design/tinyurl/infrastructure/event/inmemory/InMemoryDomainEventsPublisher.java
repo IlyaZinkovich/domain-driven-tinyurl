@@ -5,7 +5,7 @@ import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 
 public class InMemoryDomainEventsPublisher implements DomainEventsPublisher {
 
-    private InMemoryDomainEventLog eventLog;
+    private final InMemoryDomainEventLog eventLog;
 
     public InMemoryDomainEventsPublisher(InMemoryDomainEventLog eventLog) {
         this.eventLog = eventLog;

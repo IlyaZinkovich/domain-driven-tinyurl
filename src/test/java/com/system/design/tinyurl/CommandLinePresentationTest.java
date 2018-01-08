@@ -5,6 +5,7 @@ import com.system.design.tinyurl.application.url.TinyUrlService;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 import com.system.design.tinyurl.domain.event.DomainEventsSubscriber;
 import com.system.design.tinyurl.domain.hash.HashGenerator;
+import com.system.design.tinyurl.domain.url.TinyUrlFactory;
 import com.system.design.tinyurl.infrastructure.cache.inmemory.InMemoryUrlCache;
 import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventLog;
 import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventsSubscriber;
@@ -28,8 +29,9 @@ public class CommandLinePresentationTest {
         final DomainEventsSubscriber domainEventsSubscriber = new InMemoryDomainEventsSubscriber(eventLog);
         final CacheService cacheService = new CacheService(new InMemoryUrlCache(), domainEventsSubscriber);
         final HashGenerator hashGenerator = new MD5HashGenerator();
+        final TinyUrlFactory tinyUrlFactory = new TinyUrlFactory(hashGenerator);
         final TinyUrlService tinyUrlService = new TinyUrlService(new InMemoryTinyUrlRepository(),
-                hashGenerator, domainEventsPublisher);
+                tinyUrlFactory, domainEventsPublisher);
         final String url = "http://some.url";
         final String hashedUrl = hashGenerator.hash(url);
         final Iterator<String> cmdInputIterator = Arrays.asList("create", url, "get", hashedUrl, "exit").iterator();

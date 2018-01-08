@@ -6,6 +6,7 @@ import com.system.design.tinyurl.domain.cache.UrlCache;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 import com.system.design.tinyurl.domain.event.DomainEventsSubscriber;
 import com.system.design.tinyurl.domain.hash.HashGenerator;
+import com.system.design.tinyurl.domain.url.TinyUrlFactory;
 import com.system.design.tinyurl.domain.url.TinyUrlRepository;
 import com.system.design.tinyurl.infrastructure.cache.inmemory.InMemoryUrlCache;
 import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventLog;
@@ -28,7 +29,8 @@ public class TinyUrlApp {
         final CacheService cacheService = new CacheService(urlCache, cacheDomainEventsSubscriber);
         final TinyUrlRepository tinyUrlRepository = new InMemoryTinyUrlRepository();
         final HashGenerator hashGenerator = new MD5HashGenerator();
-        final TinyUrlService tinyUrlService = new TinyUrlService(tinyUrlRepository, hashGenerator, domainEventsPublisher);
+        final TinyUrlFactory tinyUrlFactory = new TinyUrlFactory(hashGenerator);
+        final TinyUrlService tinyUrlService = new TinyUrlService(tinyUrlRepository, tinyUrlFactory, domainEventsPublisher);
         final Scanner cmdInputScanner = new Scanner(System.in);
         new CommandLinePresentation(presentationDomainEventsSubscriber, cacheService, tinyUrlService,
                 cmdInputScanner, System.out::println)

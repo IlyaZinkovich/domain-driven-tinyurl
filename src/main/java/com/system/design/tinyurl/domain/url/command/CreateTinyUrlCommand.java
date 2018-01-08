@@ -1,4 +1,4 @@
-package com.system.design.tinyurl.application.url.command;
+package com.system.design.tinyurl.domain.url.command;
 
 public class CreateTinyUrlCommand {
 

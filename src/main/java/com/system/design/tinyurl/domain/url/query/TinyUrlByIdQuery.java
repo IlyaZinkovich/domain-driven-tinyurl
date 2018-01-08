@@ -1,4 +1,4 @@
-package com.system.design.tinyurl.application.url.query;
+package com.system.design.tinyurl.domain.url.query;
 
 import com.system.design.tinyurl.domain.url.TinyUrlId;
 
