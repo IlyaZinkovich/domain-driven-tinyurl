@@ -16,12 +16,12 @@ public class TinyUrlService {
 
     private final TinyUrlRepository repository;
     private final HashGenerator hashGenerator;
-    private final DomainEventsPublisher eventsPublisher;
+    private final DomainEventsPublisher domainEventsPublisher;
 
     public TinyUrlService(TinyUrlRepository repository, HashGenerator hashGenerator,
-                          DomainEventsPublisher eventsPublisher) {
+                          DomainEventsPublisher domainEventsPublisher) {
         this.hashGenerator = hashGenerator;
-        this.eventsPublisher = eventsPublisher;
+        this.domainEventsPublisher = domainEventsPublisher;
         this.repository = repository;
     }
 
@@ -32,7 +32,7 @@ public class TinyUrlService {
         final String hash = hashGenerator.hash(originalUrl);
         final TinyUrl tinyUrl = new TinyUrl(tinyUrlId, hash, originalUrl);
         repository.save(tinyUrl);
-        eventsPublisher.publish(new TinyUrlCreatedEvent(tinyUrlId, tinyUrl.originalUrl(), tinyUrl.urlHash()));
+        domainEventsPublisher.publish(new TinyUrlCreatedEvent(tinyUrlId, tinyUrl.originalUrl(), tinyUrl.urlHash()));
     }
 
     @Transactional

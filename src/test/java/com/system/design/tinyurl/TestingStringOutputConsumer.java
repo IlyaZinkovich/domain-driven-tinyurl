@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 public class TestingStringOutputConsumer implements Consumer<String> {
 
-    private List<String> output = new ArrayList<>();
+    private final List<String> output = new ArrayList<>();
 
     @Override
     public void accept(String outputString) {
