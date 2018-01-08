@@ -5,7 +5,7 @@ import com.system.design.tinyurl.application.cache.query.OriginalUrlByHashQuery;
 import com.system.design.tinyurl.application.url.TinyUrlService;
 import com.system.design.tinyurl.application.url.command.CreateTinyUrlCommand;
 import com.system.design.tinyurl.domain.event.DomainEvent;
-import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
+import com.system.design.tinyurl.domain.event.DomainEventsSubscriber;
 import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
 
 import java.util.Iterator;
@@ -18,14 +18,14 @@ public class CommandLinePresentation {
     private final Iterator<String> cmdInputScanner;
     private final Consumer<String> stringOutput;
 
-    public CommandLinePresentation(DomainEventsPublisher domainEventsPublisher, CacheService cacheService,
+    public CommandLinePresentation(DomainEventsSubscriber domainEventsSubscriber, CacheService cacheService,
                                    TinyUrlService tinyUrlService, Iterator<String> cmdInputScanner,
                                    Consumer<String> stringOutput) {
         this.cacheService = cacheService;
         this.tinyUrlService = tinyUrlService;
         this.cmdInputScanner = cmdInputScanner;
         this.stringOutput = stringOutput;
-        domainEventsPublisher.subscribe(this::handleTinyUrlCreation);
+        domainEventsSubscriber.subscribe(this::handleTinyUrlCreation);
     }
 
     private void handleTinyUrlCreation(DomainEvent event) {
@@ -47,7 +47,7 @@ public class CommandLinePresentation {
                 stringOutput.accept(originalUrl);
             } else if ("wait".equals(nextCommand)) {
                 try {
-                    Thread.sleep(3000L);
+                    Thread.sleep(5000L);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }

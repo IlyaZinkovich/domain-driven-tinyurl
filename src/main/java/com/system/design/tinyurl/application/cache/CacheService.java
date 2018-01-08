@@ -3,16 +3,16 @@ package com.system.design.tinyurl.application.cache;
 import com.system.design.tinyurl.application.cache.query.OriginalUrlByHashQuery;
 import com.system.design.tinyurl.domain.cache.UrlCache;
 import com.system.design.tinyurl.domain.event.DomainEvent;
-import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
+import com.system.design.tinyurl.domain.event.DomainEventsSubscriber;
 import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
 
 public class CacheService {
 
     private final UrlCache urlCache;
 
-    public CacheService(UrlCache urlCache, DomainEventsPublisher eventsPublisher) {
+    public CacheService(UrlCache urlCache, DomainEventsSubscriber domainEventsSubscriber) {
         this.urlCache = urlCache;
-        eventsPublisher.subscribe(this::handleTinyUrlCreated);
+        domainEventsSubscriber.subscribe(this::handleTinyUrlCreated);
     }
 
     public void handleTinyUrlCreated(DomainEvent event) {

@@ -24,10 +24,10 @@ public class HibernateTinyUrlRepositoryTest {
 
     @Test
     public void test() {
-        TinyUrlId tinyUrlId = tinyUrlRepository.nextIdentity();
-        TinyUrl tinyUrl = new TinyUrl(tinyUrlId, "urlHash", "originalUrl");
+        final TinyUrlId tinyUrlId = tinyUrlRepository.nextIdentity();
+        final TinyUrl tinyUrl = new TinyUrl(tinyUrlId, "urlHash", "originalUrl");
         tinyUrlRepository.save(tinyUrl);
-        TinyUrl persistedTinyUrl = tinyUrlRepository.getById(tinyUrlId).orElseThrow(AssertionError::new);
+        final TinyUrl persistedTinyUrl = tinyUrlRepository.getById(tinyUrlId).orElseThrow(AssertionError::new);
         assertEquals(tinyUrl, persistedTinyUrl);
     }
 }
