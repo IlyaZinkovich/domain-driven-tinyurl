@@ -1,7 +1,7 @@
 package com.system.design.tinyurl;
 
 import com.system.design.tinyurl.application.cache.CacheService;
-import com.system.design.tinyurl.application.cache.query.OriginalUrlByHashQuery;
+import com.system.design.tinyurl.domain.cache.query.OriginalUrlByHashQuery;
 import com.system.design.tinyurl.domain.cache.UrlCache;
 import com.system.design.tinyurl.domain.event.DomainEventsSubscriber;
 import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;

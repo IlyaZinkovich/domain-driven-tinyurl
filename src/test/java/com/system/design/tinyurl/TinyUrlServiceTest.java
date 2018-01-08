@@ -1,15 +1,12 @@
 package com.system.design.tinyurl;
 
 import com.system.design.tinyurl.application.url.TinyUrlService;
-import com.system.design.tinyurl.application.url.command.CreateTinyUrlCommand;
-import com.system.design.tinyurl.application.url.query.TinyUrlByIdQuery;
+import com.system.design.tinyurl.domain.url.*;
+import com.system.design.tinyurl.domain.url.command.CreateTinyUrlCommand;
+import com.system.design.tinyurl.domain.url.query.TinyUrlByIdQuery;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 import com.system.design.tinyurl.domain.event.DomainEventsSubscriber;
 import com.system.design.tinyurl.domain.hash.HashGenerator;
-import com.system.design.tinyurl.domain.url.TinyUrl;
-import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
-import com.system.design.tinyurl.domain.url.TinyUrlId;
-import com.system.design.tinyurl.domain.url.TinyUrlRepository;
 import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventLog;
 import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventsPublisher;
 import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventsSubscriber;
@@ -31,7 +28,8 @@ public class TinyUrlServiceTest {
         domainEventsSubscriber.subscribe(consumer);
         final HashGenerator hashGenerator = new MD5HashGenerator();
         final TinyUrlRepository repository = new InMemoryTinyUrlRepository();
-        final TinyUrlService service = new TinyUrlService(repository, hashGenerator, domainEventsPublisher);
+        final TinyUrlFactory tinyUrlFactory = new TinyUrlFactory(hashGenerator);
+        final TinyUrlService service = new TinyUrlService(repository, tinyUrlFactory, domainEventsPublisher);
         final String originalUrl = "http://some.long/url";
         service.createTinyUrl(new CreateTinyUrlCommand(originalUrl));
         final TinyUrlCreatedEvent event = consumer.event();
@@ -49,7 +47,8 @@ public class TinyUrlServiceTest {
         final DomainEventsPublisher domainEventsPublisher = new InMemoryDomainEventsPublisher(eventLog);
         final TinyUrlRepository repository = new InMemoryTinyUrlRepository();
         final HashGenerator hashGenerator = new MD5HashGenerator();
-        final TinyUrlService service = new TinyUrlService(repository, hashGenerator, domainEventsPublisher);
+        final TinyUrlFactory tinyUrlFactory = new TinyUrlFactory(hashGenerator);
+        final TinyUrlService service = new TinyUrlService(repository, tinyUrlFactory, domainEventsPublisher);
         final TinyUrlId tinyUrlId = new TinyUrlId("uuid");
         final TinyUrl tinyUrl = new TinyUrl(tinyUrlId, "urlHash", "originalUrl");
         repository.save(tinyUrl);

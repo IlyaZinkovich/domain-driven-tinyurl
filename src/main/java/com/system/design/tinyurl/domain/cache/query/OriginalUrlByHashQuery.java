@@ -1,4 +1,4 @@
-package com.system.design.tinyurl.application.cache.query;
+package com.system.design.tinyurl.domain.cache.query;
 
 public class OriginalUrlByHashQuery {
 

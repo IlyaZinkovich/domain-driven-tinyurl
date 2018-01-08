@@ -8,8 +8,8 @@ import java.util.function.Consumer;
 
 public class InMemoryDomainEventLog {
 
-    private List<DomainEvent> events = new ArrayList<>();
-    private List<Consumer<DomainEvent>> callbacks = new ArrayList<>();
+    private final List<DomainEvent> events = new ArrayList<>();
+    private final List<Consumer<DomainEvent>> callbacks = new ArrayList<>();
 
     public void append(DomainEvent event) {
         events.add(event);
