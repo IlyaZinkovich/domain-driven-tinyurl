@@ -1,5 +1,7 @@
 package com.system.design.tinyurl.domain.url;
 
+import java.util.Objects;
+
 public class TinyUrl {
 
     private final TinyUrlId id;
@@ -22,5 +24,18 @@ public class TinyUrl {
 
     public String originalUrl() {
         return originalUrl;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TinyUrl tinyUrl = (TinyUrl) o;
+        return Objects.equals(id, tinyUrl.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
