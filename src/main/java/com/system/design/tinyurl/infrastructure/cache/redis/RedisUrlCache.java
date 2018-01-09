@@ -4,6 +4,8 @@ import com.system.design.tinyurl.domain.cache.UrlCache;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
 
+import java.util.Optional;
+
 public class RedisUrlCache implements UrlCache {
 
     private final RedisCommands<String, String> commands;
@@ -18,7 +20,7 @@ public class RedisUrlCache implements UrlCache {
     }
 
     @Override
-    public String get(String urlHash) {
-        return commands.get(urlHash);
+    public Optional<String> get(String urlHash) {
+        return Optional.ofNullable(commands.get(urlHash));
     }
 }

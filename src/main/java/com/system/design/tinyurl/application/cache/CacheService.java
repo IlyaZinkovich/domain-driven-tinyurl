@@ -6,6 +6,8 @@ import com.system.design.tinyurl.domain.event.DomainEvent;
 import com.system.design.tinyurl.domain.event.DomainEventsSubscriber;
 import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
 
+import java.util.Optional;
+
 public class CacheService {
 
     private final UrlCache urlCache;
@@ -22,7 +24,7 @@ public class CacheService {
         }
     }
 
-    public String findOriginalUrlByHash(OriginalUrlByHashQuery query) {
+    public Optional<String> getOriginalUrlByHash(OriginalUrlByHashQuery query) {
         return urlCache.get(query.urlHash());
     }
 }

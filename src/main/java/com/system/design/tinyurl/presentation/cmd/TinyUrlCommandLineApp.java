@@ -1,4 +1,4 @@
-package com.system.design.tinyurl;
+package com.system.design.tinyurl.presentation.cmd;
 
 import com.system.design.tinyurl.application.cache.CacheService;
 import com.system.design.tinyurl.application.url.TinyUrlService;
@@ -14,11 +14,11 @@ import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEve
 import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventsSubscriber;
 import com.system.design.tinyurl.infrastructure.hash.md5.MD5HashGenerator;
 import com.system.design.tinyurl.infrastructure.url.inmemory.InMemoryTinyUrlRepository;
-import com.system.design.tinyurl.presentation.CommandLinePresentation;
+import com.system.design.tinyurl.presentation.cmd.CommandLinePresentation;
 
 import java.util.Scanner;
 
-public class TinyUrlApp {
+public class TinyUrlCommandLineApp {
 
     public static void main(String[] args) {
         final InMemoryDomainEventLog eventLog = new InMemoryDomainEventLog();

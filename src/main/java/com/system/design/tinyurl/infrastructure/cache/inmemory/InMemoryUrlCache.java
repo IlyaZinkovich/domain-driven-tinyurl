@@ -4,6 +4,7 @@ import com.system.design.tinyurl.domain.cache.UrlCache;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class InMemoryUrlCache implements UrlCache {
 
@@ -15,7 +16,7 @@ public class InMemoryUrlCache implements UrlCache {
     }
 
     @Override
-    public String get(String urlHash) {
-        return cache.get(urlHash);
+    public Optional<String> get(String urlHash) {
+        return Optional.ofNullable(cache.get(urlHash));
     }
 }

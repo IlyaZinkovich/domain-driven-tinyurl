@@ -1,4 +1,4 @@
-package com.system.design.tinyurl.presentation;
+package com.system.design.tinyurl.presentation.cmd;
 
 import com.system.design.tinyurl.application.cache.CacheService;
 import com.system.design.tinyurl.domain.cache.query.OriginalUrlByHashQuery;
@@ -43,8 +43,7 @@ public class CommandLinePresentation {
                 tinyUrlService.createTinyUrl(new CreateTinyUrlCommand(url));
             } else if ("get".equals(nextCommand)) {
                 final String urlHash = cmdInputScanner.next();
-                final String originalUrl = cacheService.findOriginalUrlByHash(new OriginalUrlByHashQuery(urlHash));
-                stringOutput.accept(originalUrl);
+                cacheService.getOriginalUrlByHash(new OriginalUrlByHashQuery(urlHash)).ifPresent(stringOutput::accept);
             } else if ("wait".equals(nextCommand)) {
                 try {
                     Thread.sleep(5000L);

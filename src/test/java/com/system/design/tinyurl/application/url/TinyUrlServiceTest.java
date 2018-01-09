@@ -52,7 +52,7 @@ public class TinyUrlServiceTest {
         final TinyUrlId tinyUrlId = new TinyUrlId("uuid");
         final TinyUrl tinyUrl = new TinyUrl(tinyUrlId, "urlHash", "originalUrl");
         repository.save(tinyUrl);
-        final TinyUrl tinyUrlById = service.findTinyUrlById(new TinyUrlByIdQuery(tinyUrlId)).orElseThrow(AssertionError::new);
+        final TinyUrl tinyUrlById = service.getTinyUrlById(new TinyUrlByIdQuery(tinyUrlId)).orElseThrow(AssertionError::new);
         assertEquals(tinyUrl, tinyUrlById);
     }
 }

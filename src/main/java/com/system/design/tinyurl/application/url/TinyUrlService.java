@@ -30,7 +30,7 @@ public class TinyUrlService {
     }
 
     @Transactional
-    public Optional<TinyUrl> findTinyUrlById(TinyUrlByIdQuery query) {
+    public Optional<TinyUrl> getTinyUrlById(TinyUrlByIdQuery query) {
         return repository.getById(query.tinyUrlId());
     }
 }

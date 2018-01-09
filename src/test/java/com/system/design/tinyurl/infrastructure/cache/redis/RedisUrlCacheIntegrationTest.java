@@ -11,6 +11,7 @@ import org.junit.Test;
 import redis.embedded.RedisServer;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,7 +38,7 @@ public class RedisUrlCacheIntegrationTest {
         final String urlHash = "urlHash";
         final String originalUrl = "originalUrl";
         urlCache.put(urlHash, originalUrl);
-        assertEquals(originalUrl, urlCache.get(urlHash));
+        assertEquals(Optional.of(originalUrl), urlCache.get(urlHash));
         connection.close();
         redisClient.shutdown();
     }

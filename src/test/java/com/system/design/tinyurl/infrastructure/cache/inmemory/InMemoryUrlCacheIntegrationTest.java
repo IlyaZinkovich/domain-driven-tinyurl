@@ -20,6 +20,8 @@ import com.system.design.tinyurl.infrastructure.hash.md5.MD5HashGenerator;
 import com.system.design.tinyurl.infrastructure.url.inmemory.InMemoryTinyUrlRepository;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 
 public class InMemoryUrlCacheIntegrationTest {
@@ -41,8 +43,9 @@ public class InMemoryUrlCacheIntegrationTest {
         tinyUrlService.createTinyUrl(new CreateTinyUrlCommand(originalUrl));
         final TinyUrlCreatedEvent tinyUrlCreatedEvent = subscriber.event();
         final TinyUrl tinyUrlById = repository.getById(tinyUrlCreatedEvent.tinyUrlId()).orElseThrow(AssertionError::new);
-        assertEquals(tinyUrlById.originalUrl(), urlCache.get(tinyUrlById.urlHash()));
-        final String cachedOriginalUrl = cacheService.findOriginalUrlByHash(new OriginalUrlByHashQuery(tinyUrlById.urlHash()));
+        assertEquals(Optional.of(tinyUrlById.originalUrl()), urlCache.get(tinyUrlById.urlHash()));
+        final String cachedOriginalUrl = cacheService.getOriginalUrlByHash(new OriginalUrlByHashQuery(tinyUrlById.urlHash()))
+                .orElseThrow(AssertionError::new);
         assertEquals(tinyUrlById.originalUrl(), cachedOriginalUrl);
         domainEventsSubscriber.shutdown();
     }
