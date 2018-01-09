@@ -1,6 +1,6 @@
-package com.system.design.tinyurl;
+package com.system.design.tinyurl.application.url;
 
-import com.system.design.tinyurl.application.url.TinyUrlService;
+import com.system.design.tinyurl.tools.TestingTinyUrlCreatedEventConsumer;
 import com.system.design.tinyurl.domain.url.*;
 import com.system.design.tinyurl.domain.url.command.CreateTinyUrlCommand;
 import com.system.design.tinyurl.domain.url.query.TinyUrlByIdQuery;

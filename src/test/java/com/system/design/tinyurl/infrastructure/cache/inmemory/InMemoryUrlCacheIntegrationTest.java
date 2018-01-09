@@ -1,5 +1,6 @@
-package com.system.design.tinyurl;
+package com.system.design.tinyurl.infrastructure.cache.inmemory;
 
+import com.system.design.tinyurl.tools.TestingTinyUrlCreatedEventConsumer;
 import com.system.design.tinyurl.application.cache.CacheService;
 import com.system.design.tinyurl.domain.cache.query.OriginalUrlByHashQuery;
 import com.system.design.tinyurl.application.url.TinyUrlService;
@@ -12,7 +13,6 @@ import com.system.design.tinyurl.domain.hash.HashGenerator;
 import com.system.design.tinyurl.domain.url.TinyUrl;
 import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
 import com.system.design.tinyurl.domain.url.TinyUrlRepository;
-import com.system.design.tinyurl.infrastructure.cache.inmemory.InMemoryUrlCache;
 import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventLog;
 import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventsPublisher;
 import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventsSubscriber;
@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class CacheIntegrationTest {
+public class InMemoryUrlCacheIntegrationTest {
 
     @Test
     public void testTinyUrlCreatedCaches() {

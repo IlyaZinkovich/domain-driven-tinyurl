@@ -1,4 +1,4 @@
-package com.system.design.tinyurl;
+package com.system.design.tinyurl.application.cache;
 
 import com.system.design.tinyurl.application.cache.CacheService;
 import com.system.design.tinyurl.domain.cache.query.OriginalUrlByHashQuery;

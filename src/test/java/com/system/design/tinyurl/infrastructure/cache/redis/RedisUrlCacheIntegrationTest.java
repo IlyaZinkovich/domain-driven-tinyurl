@@ -1,4 +1,4 @@
-package com.system.design.tinyurl;
+package com.system.design.tinyurl.infrastructure.cache.redis;
 
 import com.system.design.tinyurl.domain.cache.UrlCache;
 import com.system.design.tinyurl.infrastructure.cache.redis.RedisUrlCache;
@@ -22,7 +22,6 @@ public class RedisUrlCacheIntegrationTest {
     public static void setup() throws IOException {
         redisServer = new RedisServer(6379);
         redisServer.start();
-
     }
 
     @AfterClass

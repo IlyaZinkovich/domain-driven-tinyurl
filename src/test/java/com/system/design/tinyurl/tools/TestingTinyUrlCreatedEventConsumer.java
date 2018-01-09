@@ -1,4 +1,4 @@
-package com.system.design.tinyurl;
+package com.system.design.tinyurl.tools;
 
 import com.system.design.tinyurl.domain.event.DomainEvent;
 import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;

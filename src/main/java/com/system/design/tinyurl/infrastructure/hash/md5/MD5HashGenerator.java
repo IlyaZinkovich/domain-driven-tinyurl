@@ -18,7 +18,7 @@ public class MD5HashGenerator implements HashGenerator {
         try {
             this.messageDigest = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            throw new MD5HashingAlgorithmIsNotFound(e);
+            throw new MD5HashingAlgorithmIsNotFoundException(e);
         }
     }
 

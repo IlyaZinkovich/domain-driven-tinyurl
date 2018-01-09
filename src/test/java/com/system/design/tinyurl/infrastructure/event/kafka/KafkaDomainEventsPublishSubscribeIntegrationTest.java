@@ -1,11 +1,10 @@
-package com.system.design.tinyurl;
+package com.system.design.tinyurl.infrastructure.event.kafka;
 
+import com.system.design.tinyurl.tools.TestingTinyUrlCreatedEventConsumer;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
 import com.system.design.tinyurl.domain.event.DomainEventsSubscriber;
 import com.system.design.tinyurl.domain.url.TinyUrlCreatedEvent;
 import com.system.design.tinyurl.domain.url.TinyUrlId;
-import com.system.design.tinyurl.infrastructure.event.kafka.KafkaDomainEventsPublisher;
-import com.system.design.tinyurl.infrastructure.event.kafka.KafkaDomainEventsSubscriber;
 import info.batey.kafka.unit.KafkaUnit;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -18,7 +17,7 @@ import static org.awaitility.Awaitility.await;
 import static org.awaitility.Duration.FIVE_SECONDS;
 import static org.junit.Assert.assertEquals;
 
-public class KafkaDomainEventsPublisherIntegrationTest {
+public class KafkaDomainEventsPublishSubscribeIntegrationTest {
 
     private static final String kafkaConnection = "localhost:5000";
     private static final String zookeeperConnection = "localhost:5001";

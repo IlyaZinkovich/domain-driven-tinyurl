@@ -1,5 +1,6 @@
-package com.system.design.tinyurl;
+package com.system.design.tinyurl.presentation;
 
+import com.system.design.tinyurl.tools.TestingStringOutputConsumer;
 import com.system.design.tinyurl.application.cache.CacheService;
 import com.system.design.tinyurl.application.url.TinyUrlService;
 import com.system.design.tinyurl.domain.event.DomainEventsPublisher;
@@ -12,7 +13,6 @@ import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEve
 import com.system.design.tinyurl.infrastructure.event.inmemory.InMemoryDomainEventsPublisher;
 import com.system.design.tinyurl.infrastructure.hash.md5.MD5HashGenerator;
 import com.system.design.tinyurl.infrastructure.url.inmemory.InMemoryTinyUrlRepository;
-import com.system.design.tinyurl.presentation.CommandLinePresentation;
 import org.junit.Test;
 
 import java.util.Arrays;

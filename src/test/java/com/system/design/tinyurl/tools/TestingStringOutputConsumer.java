@@ -1,4 +1,4 @@
-package com.system.design.tinyurl;
+package com.system.design.tinyurl.tools;
 
 import java.util.ArrayList;
 import java.util.List;
