@@ -27,7 +27,7 @@ public class MD5HashGenerator implements HashGenerator {
         final byte[] bytesOfMessage = input.getBytes(SUPPORTED_CHARSET);
         final byte[] digest = messageDigest.digest(bytesOfMessage);
         final byte[] bytesToEncode = Arrays.copyOfRange(digest, 0, 6);
-        final byte[] encodedBytes = Base64.getEncoder().encode(bytesToEncode);
+        final byte[] encodedBytes = Base64.getUrlEncoder().encode(bytesToEncode);
         return new String(encodedBytes, SUPPORTED_CHARSET);
     }
 }

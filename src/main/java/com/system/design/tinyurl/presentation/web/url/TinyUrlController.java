@@ -56,6 +56,7 @@ public class TinyUrlController {
                 if (tinyUrlCreatedEvent.tinyUrlId().equals(new TinyUrlId(tinyUrlUuid))) {
                     try {
                         sseEmitter.send(gson.toJson(tinyUrlCreatedEvent));
+                        sseEmitter.complete();
                     } catch (IOException e) {
                         sseEmitter.completeWithError(e);
                     }

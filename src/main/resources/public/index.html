@@ -36,6 +36,7 @@ table, td, th {
                 var urlHashCell = row.insertCell(1);
                 originalUrlCell.innerText = data.originalUrl;
                 urlHashCell.innerText = "http://localhost:8080/cache/" + data.urlHash;
+                source.close();
             };
         }
         xhr.send(JSON.stringify({"originalUrl" : originalUrl}));

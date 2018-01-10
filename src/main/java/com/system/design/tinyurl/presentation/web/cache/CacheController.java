@@ -1,6 +1,5 @@
 package com.system.design.tinyurl.presentation.web.cache;
 
-import com.google.gson.Gson;
 import com.system.design.tinyurl.application.cache.CacheService;
 import com.system.design.tinyurl.domain.cache.query.OriginalUrlByHashQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +12,10 @@ import org.springframework.web.servlet.view.RedirectView;
 public class CacheController {
 
     private final CacheService cacheService;
-    private final Gson gson;
 
     @Autowired
-    public CacheController(CacheService cacheService, Gson gson) {
+    public CacheController(CacheService cacheService) {
         this.cacheService = cacheService;
-        this.gson = gson;
     }
 
     @GetMapping(path = "/cache/{urlHash}")
