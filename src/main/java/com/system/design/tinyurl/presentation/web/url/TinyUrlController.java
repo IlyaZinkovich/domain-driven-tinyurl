@@ -21,9 +21,9 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 public class TinyUrlController {
 
-    private TinyUrlService tinyUrlService;
-    private Gson gson;
-    private DomainEventsSubscriber domainEventsSubscriber;
+    private final TinyUrlService tinyUrlService;
+    private final Gson gson;
+    private final DomainEventsSubscriber domainEventsSubscriber;
 
     @Autowired
     public TinyUrlController(TinyUrlService tinyUrlService, Gson gson,

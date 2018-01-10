@@ -2,7 +2,7 @@ package com.system.design.tinyurl.presentation.web.cache;
 
 public class OriginalUrlResponse {
 
-    private String originalUrl;
+    private final String originalUrl;
 
     public OriginalUrlResponse(String originalUrl) {
         this.originalUrl = originalUrl;

@@ -15,8 +15,8 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 public class CacheController {
 
-    private CacheService cacheService;
-    private Gson gson;
+    private final CacheService cacheService;
+    private final Gson gson;
 
     @Autowired
     public CacheController(CacheService cacheService, Gson gson) {
