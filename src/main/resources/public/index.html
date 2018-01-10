@@ -2,23 +2,44 @@
 <html>
 <body>
 
-<h1>Getting server updates</h1>
-<div id="result"></div>
-
+<h1>Tiny Url</h1>
+<form action="#">
+    Original Url:<br>
+    <input id="originalUrl" type="text"><br>
+    <button type="button" onclick="submitOriginalUrl()">Submit</button>
+</form>
+<table id="urlsTable">
+    <tr>
+        <th>Original Url</th>
+        <th>Tiny Url</th>
+    </tr>
+</table>
+<style>
+table, td, th {
+    border: 1px solid black;
+}
+</style>
 <script>
-    var xhr = new XMLHttpRequest();
-    var url = "http://localhost:8080/tinyurl";
-
-    xhr.open("POST", url, true);
-
-    xhr.onload = function() {
-        var uuid = JSON.parse(xhr.response).uuid;
-        var source = new EventSource("http://localhost:8080/tinyurl/events/" + uuid);
-        source.onmessage = function(event) {
-            document.getElementById("result").innerHTML += event.data + "<br>";
-        };
+    function submitOriginalUrl() {
+        var originalUrl = document.getElementById("originalUrl").value;
+        var xhr = new XMLHttpRequest();
+        var url = "http://localhost:8080/tinyurl";
+        xhr.open("POST", url, true);
+        xhr.onload = function() {
+            var uuid = JSON.parse(xhr.response).uuid;
+            var source = new EventSource("http://localhost:8080/tinyurl/events/" + uuid);
+            source.onmessage = function(event) {
+                var data = JSON.parse(event.data);
+                var table = document.getElementById("urlsTable");
+                var row = table.insertRow(-1);
+                var originalUrlCell = row.insertCell(0);
+                var urlHashCell = row.insertCell(1);
+                originalUrlCell.innerText = data.originalUrl;
+                urlHashCell.innerText = "http://localhost:8080/cache/" + data.urlHash;
+            };
+        }
+        xhr.send(JSON.stringify({"originalUrl" : originalUrl}));
     }
-    xhr.send(JSON.stringify({"originalUrl" : "http://localhost:8080/tinyurl"}));
 </script>
 
 </body>
