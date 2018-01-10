@@ -17,6 +17,7 @@ public class InMemoryDomainEventLog {
     }
 
     public void subscribe(Consumer<DomainEvent> callback) {
+        events.forEach(callback);
         callbacks.add(callback);
     }
 

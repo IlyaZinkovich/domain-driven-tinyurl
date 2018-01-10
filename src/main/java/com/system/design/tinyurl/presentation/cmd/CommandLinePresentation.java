@@ -43,7 +43,7 @@ public class CommandLinePresentation {
                 tinyUrlService.createTinyUrl(new CreateTinyUrlCommand(url));
             } else if ("get".equals(nextCommand)) {
                 final String urlHash = cmdInputScanner.next();
-                cacheService.getOriginalUrlByHash(new OriginalUrlByHashQuery(urlHash)).ifPresent(stringOutput::accept);
+                cacheService.getOriginalUrlByHash(new OriginalUrlByHashQuery(urlHash)).ifPresent(stringOutput);
             } else if ("wait".equals(nextCommand)) {
                 try {
                     Thread.sleep(5000L);
