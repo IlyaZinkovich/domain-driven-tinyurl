@@ -3,6 +3,7 @@ package com.system.design.tinyurl.presentation.web;
 import com.system.design.tinyurl.application.cache.CacheService;
 import com.system.design.tinyurl.application.url.TinyUrlService;
 import com.system.design.tinyurl.domain.cache.UrlCache;
+import com.system.design.tinyurl.domain.event.DomainEventsSubscriber;
 import com.system.design.tinyurl.domain.url.TinyUrlFactory;
 import com.system.design.tinyurl.domain.url.TinyUrlRepository;
 import com.system.design.tinyurl.infrastructure.cache.inmemory.InMemoryUrlCache;
@@ -50,5 +51,10 @@ public class PresentationContextConfiguration {
     @Bean
     public InMemoryDomainEventLog inMemoryDomainEventLog() {
         return new InMemoryDomainEventLog();
+    }
+
+    @Bean
+    public DomainEventsSubscriber tinyUrlDomainEventsSubscriber(InMemoryDomainEventLog inMemoryDomainEventLog) {
+        return new InMemoryDomainEventsSubscriber(inMemoryDomainEventLog);
     }
 }

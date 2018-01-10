@@ -4,9 +4,12 @@ import java.util.Objects;
 
 public class TinyUrl {
 
-    private final TinyUrlId id;
-    private final String urlHash;
-    private final String originalUrl;
+    private TinyUrlId id;
+    private String urlHash;
+    private String originalUrl;
+
+    private TinyUrl() {
+    }
 
     public TinyUrl(TinyUrlId id, String urlHash, String originalUrl) {
         this.id = id;

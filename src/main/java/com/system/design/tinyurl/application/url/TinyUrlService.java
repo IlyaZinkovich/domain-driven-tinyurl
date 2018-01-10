@@ -22,11 +22,12 @@ public class TinyUrlService {
     }
 
     @Transactional
-    public void createTinyUrl(CreateTinyUrlCommand command) {
+    public TinyUrlId createTinyUrl(CreateTinyUrlCommand command) {
         final TinyUrlId tinyUrlId = repository.nextIdentity();
         final TinyUrl tinyUrl = tinyUrlFactory.create(tinyUrlId, command.originalUrl());
         repository.save(tinyUrl);
         domainEventsPublisher.publish(new TinyUrlCreatedEvent(tinyUrlId, tinyUrl.originalUrl(), tinyUrl.urlHash()));
+        return tinyUrlId;
     }
 
     @Transactional

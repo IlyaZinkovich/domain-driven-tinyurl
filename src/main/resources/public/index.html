@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Getting server updates</h1>
+<div id="result"></div>
+
+<script>
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:8080/tinyurl";
+
+    xhr.open("POST", url, true);
+
+    xhr.onload = function() {
+        var uuid = JSON.parse(xhr.response).uuid;
+        var source = new EventSource("http://localhost:8080/tinyurl/events/" + uuid);
+        source.onmessage = function(event) {
+            document.getElementById("result").innerHTML += event.data + "<br>";
+        };
+    }
+    xhr.send(JSON.stringify({"originalUrl" : "http://localhost:8080/tinyurl"}));
+</script>
+
+</body>
+</html>
